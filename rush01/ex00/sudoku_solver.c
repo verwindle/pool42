@@ -9,42 +9,38 @@ typedef int bool;
 
 //========= Constants =========//
 int N = 3;            // The size of 1 square in the sudoku.
-int EMPTY = 0;        // A sign for an empty cell.
+int EMPTY = 0;        // A dot sign for an empty cell.
 int STOP_INPUT = -1;  // A sign for stop get input.
 
 //====== Function Declaration ======//
-void input_sud(char **lines, int **sud);
 bool fill_sud(int **sud, int row, int col);
 void print_sud(int **sud);
 bool is_legal(int **sud, int row, int col, int val);
-bool is_row_ok(int row[], int col, int val);
+bool is_row_ok(int *row, int col, int val);
 bool is_col_ok(int **sud, int row, int col, int val);
 bool is_sqr_ok(int **sud, int row, int col, int val);
+bool is_sudoku_ok(int **sud);
 
 //========== Main ===========//
 int main(int argc, char **argv)
 {
-    int **sud;
-    sud = (int**)malloc((sizeof(int) * N*N) * N*N);
-    for (int i = 0; i < N*N; ++i)
+    int *sud[N*N];
+	for (int i = 0; i < N*N; ++i)
+		sud[i] = (int*)malloc(sizeof(int) * N*N);
+    
+	for (int i = 0; i < N*N; ++i)
         for (int j = 0; j < N*N; ++j)
-            sud[i][j] = EMPTY;  // The sudoku board.
+            sud[i][j] = argv[i + 1][j] - 48;  // The sudoku board.
+	
+	if (!is_sudoku_ok(sud)) {
+		printf("Error\n");
+		return (0);
+	}
 
-    input_sud(argv, sud);
     fill_sud(sud, 0, 0);
     print_sud(sud);
 
     return 0;
-}
-
-//======== Input Sudoku ========//
-// Gets the input for the sudoku,
-// 0 means an empty cell.
-void input_sud(char **lines, int **sud)
-{
-    for(int i = 0; i < N*N; i++)
-        for(int j = 0; j < N*N; j++)
-            sud[i][j] = lines[i + 1][j];
 }
 
 //======== Fill Sudoku =========//
@@ -113,7 +109,7 @@ bool is_legal(int **sud, int row, int col, int val)
 //========= Is Row OK =========//
 // Checks and returns whether it's legal
 // to put 'val' in A specific row.
-bool is_row_ok(int row[], int col, int val)
+bool is_row_ok(int *row, int col, int val)
 {
     for(int i = 0; i < N*N; i++)
         if(i != col && row[i] == val)
@@ -151,4 +147,54 @@ bool is_sqr_ok(int **sud, int row, int col, int val)
                 return false;       // Found the same value again!
 
     return true;
+}
+
+int	num_of_distinct_values(int *sud, int arr[])
+{
+	int i;
+	int j;
+	int num;
+
+	i = 0;
+	j = 0;
+	num = 0;
+	while (i < 9)
+	{
+		j = 0;
+		while (j < N*N*N*N)
+		{
+			if (arr[i] == sud[j])
+			{
+				num++;
+				break;
+			}
+			++j;
+		}
+		++i;
+	}
+	return (num);
+}
+
+
+bool is_sudoku_ok(int **sud)
+{
+	int *sud_line = (int*)malloc((sizeof(int) * N*N) * N*N);
+	int value; 
+	int count = 0;
+	int digits[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+	for(int i = 0; i < N*N; i++)
+    	for (int j = 0; j < N*N; j++) {
+			value = sud[i][j];  // rewrite 2D to 1D
+			*(sud_line + N*N*i + j) = value;
+			if (!value)
+				count++;
+		}
+	if ((81 - count) < 17)
+		return false;  // min clues in sudoku has to be at least 17 > https://www.technologyreview.com/s/426554/mathematicians-solve-minimum-sudoku-problem/
+	
+	if (num_of_distinct_values(sud_line, digits) < 8)
+		return false; // sudoku with the only solution has to have not less than "n**2 - 1" distinct digits > http://pi.math.cornell.edu/~mec/Summer2009/Mahmood/More.html
+
+	return true; 
 }
