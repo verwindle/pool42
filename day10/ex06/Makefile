@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -c -Wall -Wextra -Werror
 
-NAME = main
+NAME = do-op
 
 SOURCE = ops.c op_logic.c main.c
 

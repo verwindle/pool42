@@ -15,23 +15,23 @@
 int		main(int argc, char **argv)
 {
 	t_op	op;
-	int		v1;
-	int		v2;
+	int		val1;
+	int		val2;
 	int		res;
 
-	if (argc >= 4)
+	if (argc == 4)
 	{
-		v1 = ft_atoi(argv[1]);
-		v2 = ft_atoi(argv[3]);
+		val1 = ft_atoi(argv[1]);
 		op = switch_op(argv[2]);
+		val2 = ft_atoi(argv[3]);
 		res = 0;
-		if (op == divide && v2 == 0)
+		if (op == divide && val2 == 0)
 			write(1, "Stop : division by zero", 23);
-		else if (op == modulo && v2 == 0)
+		else if (op == modulo && val2 == 0)
 			write(1, "Stop : modulo by zero", 21);
 		else if (op != 0)
 		{
-			res = op(v1, v2);
+			res = op(val1, val2);
 			ft_putnum(res);
 		}
 		else

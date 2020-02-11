@@ -1,7 +1,7 @@
 #ifndef OPS_H
 #define OPS_H
 
-typedef int(*t_op) (int, int);
+typedef int (*t_op)(int, int);
 
 int add(int a, int b);
 
