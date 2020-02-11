@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "op_logic.h"
+
 t_op switch_op(char *op)
 {
 	if (op[0] == '+' && op[1] == 0)
@@ -43,7 +45,6 @@ void ft_putnum(int num)
 
 int ft_atoi(char* str)
 {
-	int i;
 	int num;
 	char sign;
 

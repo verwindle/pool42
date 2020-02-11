@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "op_logic.h"
 
 int		main(int argc, char **argv)

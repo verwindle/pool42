@@ -13,4 +13,4 @@ int divide(int a, int b);
 
 int modulo(int a, int b);
 
-#endif OPS_H
+#endif
