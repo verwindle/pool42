@@ -1,0 +1,7 @@
+clear
+gcc -c -Wall -Wextra -Werror main.c ft_putchar.c rush01.c
+gcc -o script *.o
+./script
+rm *.o
+rm script
+

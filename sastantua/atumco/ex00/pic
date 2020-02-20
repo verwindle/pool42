@@ -1,5 +1,0 @@
-gcc -o sas sastantua.c
-rm sas.txt
-touch sas.txt
-./sas > sas.txt
-nano sas.txt

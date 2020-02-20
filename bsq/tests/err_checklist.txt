@@ -1,0 +1,17 @@
+err00 - file does not exist at all - check your prog with this too ?need map error
+err01 - empty file
+err02 - no rows count in header
+err03 - no map symbols in header
+err04 - low number of map symbols in header
+err05 - more number of map symbols in header
+err06 - no \n in first line
+err07 - no \n in last line
+err08 - no free box at all map - it’s a valid map!
+err09 - wrong char in map
+err10 - different rows leight
+err11 - no one line after header
+err12 - no one symbol in only line after header
+err13 - wrong rows count in header - less then rows in map
+err14 - wrong rows count in header - more then rows in map
+err15 - map contains “answer” symbol
+err16 - header contains only digits, but correct comparing to the map - don’t know is it valid?
